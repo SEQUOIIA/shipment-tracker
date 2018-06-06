@@ -15,5 +15,9 @@ setup(name='Shipment-tracker',
         },
       entry_points={
         "console_scripts": ["shipment-tracker=shipment_tracker.main:main"]
-      }
+      },
+      install_requires=[
+        'requests',
+        'click'
+      ]
      )
