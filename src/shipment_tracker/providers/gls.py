@@ -1,5 +1,5 @@
 from shipment_tracker.provider.provider import Provider, ShipmentProgress
-import requests
+import requests, time
 
 class GLS(Provider):
     @staticmethod
@@ -15,6 +15,11 @@ class GLS(Provider):
         jsonResp = resp.json()
         r = ShipmentProgress()   
         r.packageID = shippingCode     
+
+        if jsonResp.__contains__('tuStatus') != True:
+            time.sleep(10)
+            return GLS.getProgress(shippingCode)
+
 
         for shipment in jsonResp['tuStatus'][0]['history']:
             status = u'{description}[{date} - {time}]: {city}, {country}'.format(
