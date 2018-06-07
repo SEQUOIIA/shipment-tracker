@@ -1,6 +1,3 @@
-#import win_unicode_console
-#win_unicode_console.enable()
-
 import time, requests, click, sys, os
 from shipment_tracker.providers.gls import GLS
 from shipment_tracker.providers.ups import UPS
