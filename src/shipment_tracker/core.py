@@ -2,6 +2,7 @@ import time, requests, click, sys, os
 from shipment_tracker.providers.gls import GLS
 from shipment_tracker.providers.ups import UPS
 from shipment_tracker.providers.dhl import DHL
+from shipment_tracker.providers.postnord import PostNord
 
 class ShippingTracker:
     def __init__(self, **kwargs):
@@ -21,7 +22,8 @@ class ShippingTracker:
         providers = {
             'gls': GLS.getProgress,
             'ups': UPS.getProgress,
-            'dhl': DHL.getProgress
+            'dhl': DHL.getProgress,
+            'postnord': PostNord.getProgress 
         }
 
         if providers.__contains__(self.shippingCompany.lower()):
