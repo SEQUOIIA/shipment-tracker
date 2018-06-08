@@ -1,5 +1,5 @@
 from shipment_tracker.provider.provider import Provider, ShipmentProgress
-import requests, time
+import requests, time, sys
 
 class PostNord(Provider):
     @staticmethod
@@ -15,7 +15,11 @@ class PostNord(Provider):
         jsonResp = resp.json()
         r = ShipmentProgress()   
         r.packageID = shippingCode
-        r.packageStatus = jsonResp['response']['trackingInformationResponse']['shipments'][0]['items'][0]['statusText']['header']
+        try:
+            r.packageStatus = jsonResp['response']['trackingInformationResponse']['shipments'][0]['items'][0]['statusText']['header']
+        except TypeError:
+            print(jsonResp)
+            sys.exit(1)
 
         for shipment in jsonResp['response']['trackingInformationResponse']['shipments'][0]['items'][0]['events']:
             status = u'{description}[{time}]: {city}, {country}'.format(
