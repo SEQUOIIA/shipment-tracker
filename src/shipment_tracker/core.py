@@ -2,6 +2,7 @@ import time, requests, click, sys, os
 from shipment_tracker.providers.gls import GLS
 from shipment_tracker.providers.ups import UPS
 from shipment_tracker.providers.dhl import DHL
+from shipment_tracker.providers.dhl_de import DHLDE
 from shipment_tracker.providers.postnord import PostNord
 
 class ShippingTracker:
@@ -23,6 +24,7 @@ class ShippingTracker:
             'gls': GLS.getProgress,
             'ups': UPS.getProgress,
             'dhl': DHL.getProgress,
+            'dhl-de': DHLDE.getProgress,
             'postnord': PostNord.getProgress 
         }
 
