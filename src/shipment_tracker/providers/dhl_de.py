@@ -23,7 +23,6 @@ class DHLDE(Provider):
         req = s.prepare_request(req)
         resp = s.send(req, stream=True)
         jsonResp = resp.json()
-        print(resp.json())
         r = ShipmentProgress()   
         r.packageID = shippingCode
         r.packageStatus = jsonResp['events'][0]['eventStatus']
