@@ -35,7 +35,7 @@ class ShippingTracker:
         shipmentActivityCounter = 0
 
         while True:
-            resp = getProgress(self.shippingCode)
+            resp = self.retry(getProgress, 5)
 
             click.clear()
             packageStatus = u'Status of package {}'.format(resp.packageID)
@@ -53,6 +53,19 @@ class ShippingTracker:
                 if self.enableNotification:
                     self.send_notification(resp.status[0])         
             time.sleep(60)
+
+    def retry(self, funcToRun, tries):
+        triesCounter = tries
+
+        while True:
+            if triesCounter == 0:
+                raise NameError('Maxmimum retries reached.')
+            try:
+                resp = funcToRun(self.shippingCode)
+                return resp
+            except:
+                triesCounter = triesCounter - 1
+                time.sleep(30)
 
     def send_notification(self, status):
         req = requests.Request('POST', 'https://api.pushover.net/1/messages.json',
