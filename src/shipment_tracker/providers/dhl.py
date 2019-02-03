@@ -1,9 +1,9 @@
-from shipment_tracker.provider.provider import Provider
+from shipment_tracker.provider.provider import Provider, ShipmentProgress
 import requests
 
 class DHL(Provider):
     @staticmethod
-    def getProgressX(shippingCode):
+    def getProgress(shippingCode):
         req = requests.Request('GET', 
         'http://www.dhl.com/shipmentTracking?AWB={trackingNumber}&countryCode=g0&languageCode=en&_=1515593653850'.format(trackingNumber=shippingCode),
         headers={
@@ -14,4 +14,14 @@ class DHL(Provider):
         req = s.prepare_request(req)
         resp = s.send(req, stream=True)
         json = resp.json()
-        print(json)
+        r = ShipmentProgress()
+        for shipment in json['results'][0]['checkpoints']:
+            status = u'{description}[{time} {date}]: {location}'.format(
+                description=shipment['description'],
+                time=shipment['time'],
+                date=shipment['date'],
+                location=shipment['location']
+            )
+            r.addStatus(status)
+        
+        return r
