@@ -4,7 +4,7 @@ import requests, time
 class PostNord(Provider):
     @staticmethod
     def getProgress(shippingCode):
-        req = requests.Request('GET', 'https://www.postnord.dk/api/shipment/{trackingnumber}/en'.format(trackingnumber=shippingCode),
+        req = requests.Request('GET', 'https://www.postnord.dk/api/pnmw/shipment/{trackingnumber}/en'.format(trackingnumber=shippingCode),
         headers={
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
         })
