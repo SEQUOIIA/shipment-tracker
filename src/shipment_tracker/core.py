@@ -4,6 +4,7 @@ from shipment_tracker.providers.ups import UPS
 from shipment_tracker.providers.dhl import DHL
 from shipment_tracker.providers.dhl_de import DHLDE
 from shipment_tracker.providers.postnord import PostNord
+from shipment_tracker.providers.bring import Bring;
 
 class ShippingTracker:
     def __init__(self, **kwargs):
@@ -25,7 +26,8 @@ class ShippingTracker:
             'ups': UPS.getProgress,
             'dhl': DHL.getProgress,
             'dhl-de': DHLDE.getProgress,
-            'postnord': PostNord.getProgress 
+            'postnord': PostNord.getProgress,
+            'bring': Bring.getProgress,
         }
 
         if providers.__contains__(self.shippingCompany.lower()):
