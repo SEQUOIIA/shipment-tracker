@@ -5,7 +5,7 @@ class DHL(Provider):
     @staticmethod
     def getProgress(shippingCode):
         req = requests.Request('GET', 
-        'http://www.dhl.com/shipmentTracking?AWB={trackingNumber}&countryCode=g0&languageCode=en&_=1515593653850'.format(trackingNumber=shippingCode),
+        'https://www.dhl.com/shipmentTracking?AWB={trackingNumber}&countryCode=g0&languageCode=en&_=1515593653850'.format(trackingNumber=shippingCode),
         headers={
             'User-Agent': 'User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
         })
